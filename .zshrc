@@ -124,7 +124,7 @@ precmd () {
 }
 
 # プロンプトの見た目定義
-PROMPT=$'%{${fg_bold[red]}%}${USER}@${HOST}%{${reset_color}%} %{${fg[blue]}%}%~%{${reset_color}%} %1(v|$psvar[1]|)\n%(!.#.$) '
+PROMPT=$'%{${fg[blue]}%}%~%{${reset_color}%} %1(v|$psvar[1]|) %(!.#.$) '
 
 
 # ------------------------------------------------------------------------------
@@ -136,10 +136,18 @@ unsetopt complete_aliases
 alias_preexec() {
     # 実行しようとしている最初の単語（コマンド名）を取得
     local cmd=${1%% *}
+    
     # それがエイリアスとして登録されているかチェック
     if [[ -n "${aliases[$cmd]}" ]]; then
-        # 登録されていたら、実際に実行される全量（展開後）を緑色で画面に表示
-        echo "${fg[green]}▶ Executing: ${aliases[$cmd]} ${1#* }${reset_color}"
+        local expansion="${aliases[$cmd]}"
+        
+        # エイリアスの展開前後でが同一の場合（lsなどの標準エイリアス）は無視
+        if [[ "$expansion" == "$cmd "* || "$expansion" == "$cmd" ]]; then
+            return
+        fi
+        
+        # それ以外はカスタムエイリアス（ghpoなど）と判定して表示
+        echo "${fg[green]}▶ Executing: ${expansion} ${1#* }${reset_color}"
     fi
 }
 # zshの実行前フック（preexec）に上記の関数を登録
@@ -149,3 +157,5 @@ add-zsh-hook preexec alias_preexec
 # ghエイリアス
 alias ghpo="git push origin \$(git branch --show-current) --force-with-lease"
 alias ghprc="gh pr create --base main \$(git branch --show-current)"
+alias gcmm="git commit -m"
+alias gcma="git commit --amend"
