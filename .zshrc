@@ -16,6 +16,9 @@ fi
 # 大文字・小文字を区別せずに補完する（例: 'cd desktop' で 'Desktop' に移動できる）
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+# 補完候補が2つ以上存在する場合に、選択モードを有効にする
+zstyle ':completion:*default' menu select=2 
+
 # Tabキーの補完候補一覧で、ファイルの種別（フォルダ、実行ファイル等）にマークを表示
 setopt list_types
 
@@ -24,7 +27,6 @@ setopt always_last_prompt
 
 # カーソルの前後を挟んでTabキーで間を補完できる 「in|.ts」->「index.ts」
 setopt complete_in_word
-
 
 # ------------------------------------------------------------------------------
 # 2. 履歴検索
