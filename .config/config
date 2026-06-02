@@ -5,3 +5,4 @@ quick-terminal-animation-duration = 0
 quick-terminal-size = 100%,100%
 quick-terminal-screen = mouse
 quick-terminal-autohide = false
+macos-option-as-alt = true
