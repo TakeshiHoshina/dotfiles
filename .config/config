@@ -1,8 +1,7 @@
-keybind = global:cmd+i=toggle_quick_terminal
+keybind = global:cmd+shift+enter=toggle_quick_terminal
 background-opacity = 0.8
-quick-terminal-position = top
+quick-terminal-position = center
 quick-terminal-animation-duration = 0
 quick-terminal-size = 100%,100%
 quick-terminal-screen = mouse
-quick-terminal-autohide = false
-macos-option-as-alt = true
+quick-terminal-autohide = true
